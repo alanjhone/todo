@@ -1,0 +1,60 @@
+div.container {
+    width: 50%;
+    margin: 0 auto;
+}
+
+footer {
+    padding: 1em;
+    color: white;
+    background-color: black;
+    clear: left;
+    text-align: center;
+    margin-top: 100px !important; 
+}
+
+header {
+    padding: 1em;
+    color: #000;
+    background-color: #FFF;
+    clear: left;
+    text-align: center;
+}
+
+article {
+    padding: 1em;
+    overflow: hidden;
+}
+
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+}
+
+nav ul li {
+    float: left;
+    border-right: 1px solid #bbb;
+}
+
+nav ul li:last-child {
+    border-right: none;
+}
+
+nav ul li a, .dropbtn {
+    display: inline-block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+nav ul li a:hover, .dropdown:hover .dropbtn {
+    background-color: red;
+}
+
+
+.active {
+    background-color: #4CAF50;
+}

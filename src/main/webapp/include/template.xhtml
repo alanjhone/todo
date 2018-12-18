@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+	
+<h:head>
+	<title> TODO </title>
+	
+	<link rel="stylesheet" href="/todo/css/sistema.css" />
+	<link rel="stylesheet" href="/todo/css/bootstrap.css" />
+
+
+</h:head>
+
+<h:body>
+
+      <nav>
+        <ul>
+          <li><a href="index.xhtml">Home</a></li>
+          <li class="active" style="float: right"><a href="#about">About</a></li>
+        </ul>
+      </nav>
+      
+      <article>
+
+        <div class="container" style="text-align: center;">
+				<ui:insert name="conteudo">
+		        	Conteúdo
+		    	</ui:insert>
+        </div>
+        
+        <div class="clearfix"></div>
+
+      </article>
+	
+	<footer>Copyright alanjhone.github.io</footer>
+	
+	<script src="/todo/js/jquery.min.js"></script>
+	<script src="/todo/js/bootstrap.js"></script>
+  	<script src="/todo/js/bootstrap.bundle.js"></script>
+	
+</h:body>
+</html>

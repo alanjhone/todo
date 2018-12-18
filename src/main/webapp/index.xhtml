@@ -1,0 +1,89 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	template="/include/template.xhtml">
+	
+	<ui:define name="conteudo">
+			<h:form prependId="false" onkeypress="if (event.keyCode == 13) { document.getElementById('btn_add').click(); return false; }">
+				<h1>Todos</h1>
+				
+				<div class="row">
+					<h:messages id="messages" autoUpdate="true" closable="true" />
+				</div>
+				
+				<div class="row">
+					<div class="input-group">
+					  <div class="input-group-prepend">
+					  	<h:commandButton actionListener="#{taskMBean.add}" value="+" class="input-group-text" id="btn_add" style="display: none;"/>
+					  </div>
+					  <h:inputText id="description" name="description" value="#{taskMBean.task.description}" 
+					  class="form-control" style="padding:10px;"/>
+					</div>
+				</div>
+					
+				<h:panelGroup id="taskList" style="padding-top: 20px;">
+					<div class="row">
+						<h:dataTable rendered="#{taskMBean.tasks.size() > 0}"  class="table table-hover" 
+							value="#{ taskMBean.tasks }" var="task" id="tabela">
+							
+							<h:column>
+								<f:facet name="header">
+									<h:outputText value="Tarefa" />
+								</f:facet>
+								<h:outputText value="#{ task.description }" />
+							</h:column>
+		
+							<h:column>
+								<f:facet name="header">
+									<h:outputText value="Status" />
+								</f:facet>
+								<h:commandLink actionListener="#{taskMBean.active(task)}" id="btn_active" rendered="#{task.status == true}"
+									class="btn-icons">
+									<img src="/todo/images/check_verde.png" title="Active" class="img-edit-icon"/>
+								</h:commandLink>
+								<h:commandLink actionListener="#{taskMBean.completed(task)}" id="btn_completed" rendered="#{task.status == false}"
+									class="btn-icons">									
+									<img src="/todo/images/check.png" title="Active" class="img-edit-icon"/>
+								</h:commandLink>
+							
+							</h:column>
+							
+							<h:column>
+								<f:facet name="header">
+									<h:outputText value="Options" />
+								</f:facet>
+								
+								<h:commandLink actionListener="#{taskMBean.edit(task)}" id="btn_edit"
+									class="btn-icons">
+									<img src="/todo/images/edit.png" title="Alterar" class="img-edit-icon"/>
+								</h:commandLink>
+								
+								<h:commandLink actionListener="#{taskMBean.remove(task)}" id="btn_remove"
+									class="btn-icons"
+									onclick="return confirm('Deseja realmente remover esse registro?')">
+									<img src="/todo/images/delete.png" title="Remover" class="img-edit-icon"/>
+									
+								</h:commandLink>
+								
+							</h:column>
+							
+						</h:dataTable>
+					</div>
+				</h:panelGroup>
+				
+				
+					<div class="row">
+					
+						<h:panelGroup style="padding-top: 10px;">
+							<h:commandLink actionListener="#{taskMBean.remove(task)}" id="listAll" value="All" style="padding-right: 10px;"> </h:commandLink>
+							<h:commandLink actionListener="#{taskMBean.remove(task)}" id="listActive" value="Active" style="padding-right: 10px;"> </h:commandLink>
+							<h:commandLink actionListener="#{taskMBean.remove(task)}" id="listCompleted" value="Completed"> </h:commandLink>
+						</h:panelGroup>
+					</div>
+				
+				
+			</h:form>
+
+	</ui:define>
+</ui:composition>
