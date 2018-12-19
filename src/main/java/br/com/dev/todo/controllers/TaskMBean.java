@@ -8,6 +8,7 @@ import java.util.List;
 
 import javax.faces.bean.ManagedBean;
 
+import org.ocpsoft.rewrite.el.ELBeanName;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -24,6 +25,7 @@ import br.com.dev.todo.services.TaskService;
 
 @Scope(value = "session")
 @Component(value = "taskMBean")
+@ELBeanName(value = "taskMBean")
 public class TaskMBean {
 
 	private List<Task> tasks;
@@ -42,41 +44,26 @@ public class TaskMBean {
 	}
 
 	
-	public String add(){
+	public void add(){
 		
-		if((tasks.isEmpty() || !tasks.contains(task)) && task != null && task.getDescription() != ""){
-			task.setStatus(false);
-			tasks.add(task);
+
+				taskService.save(task);
 			
-			try {
-				taskService.salvarOuAtualizar(task);
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			
-		}
+		
 		
 		task = new Task();
-		
-		return "";
 	}
 
-	public String edit(Task task){
-		if(!tasks.isEmpty() && tasks.contains(task)){
-			this.task = task; 
-		}	
-		
-		return "";
+	public void edit(Task task){
+		this.task = task; 
 		
 	}
 	
-	public String remove(Task task){
-		if(!tasks.isEmpty() && tasks.contains(task)){
-			tasks.remove(task);
-		}
+	public void remove(Task task){
 		
-		return "";
+			taskService.delete(task);
+		
+		
 	}
 	
 	public void active(Task task){
@@ -91,7 +78,7 @@ public class TaskMBean {
 	 * @return the tasks
 	 */
 	public List<Task> getTasks() {
-		return tasks;
+		return taskService.findAll();
 	}
 
 	/**
@@ -157,7 +144,10 @@ public class TaskMBean {
 	}
 	
 	
-	
+	public void changeStatus(Task task) {
+		task.setStatus(!task.isStatus());
+		taskService.save(task);
+	}
 	
 	
 }

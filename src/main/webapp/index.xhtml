@@ -2,6 +2,7 @@
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
 	template="/include/template.xhtml">
 	
 	<ui:define name="conteudo">
@@ -15,7 +16,7 @@
 				<div class="row">
 					<div class="input-group">
 					  <div class="input-group-prepend">
-					  	<h:commandButton actionListener="#{taskMBean.add}" value="+" class="input-group-text" id="btn_add" style="display: none;"/>
+					  	<p:commandButton value="+" update="taskList description" action="#{taskMBean.add}" id="btn_add" style="display: none;"/>
 					  </div>
 					  <h:inputText id="description" name="description" value="#{taskMBean.task.description}" 
 					  class="form-control" style="padding:10px;"/>
@@ -26,27 +27,29 @@
 					<div class="row">
 						<h:dataTable rendered="#{taskMBean.tasks.size() > 0}"  class="table table-hover" 
 							value="#{ taskMBean.tasks }" var="task" id="tabela">
-							
+
 							<h:column>
 								<f:facet name="header">
-									<h:outputText value="Tarefa" />
+									<h:outputText value="State" />
 								</f:facet>
-								<h:outputText value="#{ task.description }" />
-							</h:column>
-		
-							<h:column>
-								<f:facet name="header">
-									<h:outputText value="Status" />
-								</f:facet>
-								<h:commandLink actionListener="#{taskMBean.active(task)}" id="btn_active" rendered="#{task.status == true}"
+									
+								<p:commandLink action="#{taskMBean.changeStatus(task)}" update="taskList"  id="btn_state" rendered="#{task.status == true}"
 									class="btn-icons">
-									<img src="/todo/images/check_verde.png" title="Active" class="img-edit-icon"/>
-								</h:commandLink>
-								<h:commandLink actionListener="#{taskMBean.completed(task)}" id="btn_completed" rendered="#{task.status == false}"
+									<img src="/todo/images/check_verde.png" title="Completed" class="img-edit-icon" />
+								</p:commandLink>
+								
+								<p:commandLink action="#{taskMBean.changeStatus(task)}" id="btn_completed" update="taskList" rendered="#{task.status == false}"
 									class="btn-icons">									
 									<img src="/todo/images/check.png" title="Active" class="img-edit-icon"/>
-								</h:commandLink>
+								</p:commandLink>
 							
+							</h:column>
+							
+							<h:column>
+								<f:facet name="header">
+									<h:outputText value="Task" />
+								</f:facet>
+								<h:outputText value="#{ task.description }" />
 							</h:column>
 							
 							<h:column>
@@ -54,17 +57,16 @@
 									<h:outputText value="Options" />
 								</f:facet>
 								
-								<h:commandLink actionListener="#{taskMBean.edit(task)}" id="btn_edit"
+								<p:commandLink action="#{taskMBean.edit(task)}" id="btn_edit" update="description"
 									class="btn-icons">
 									<img src="/todo/images/edit.png" title="Alterar" class="img-edit-icon"/>
-								</h:commandLink>
+								</p:commandLink>
 								
-								<h:commandLink actionListener="#{taskMBean.remove(task)}" id="btn_remove"
-									class="btn-icons"
-									onclick="return confirm('Deseja realmente remover esse registro?')">
+								<p:commandLink action="#{taskMBean.remove(task)}" id="btn_remove" update="taskList"
+									class="btn-icons" >
 									<img src="/todo/images/delete.png" title="Remover" class="img-edit-icon"/>
 									
-								</h:commandLink>
+								</p:commandLink>
 								
 							</h:column>
 							

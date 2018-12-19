@@ -11,36 +11,36 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
-import br.com.dev.todo.dao.TaskDao;
 import br.com.dev.todo.domain.Task;
+import br.com.dev.todo.repository.TaskRepository;
 
 /**
  * @author Alan Jhone
  *
  */
 
-@Component @Transactional
-public class TaskService  extends GenericService<Task>{
+@Service @Transactional
+public class TaskService{
 
 	@Autowired
-	private TaskDao taskDao;
+	private TaskRepository taskRepository;
 
 	public List<Task> findAll() {
-		return taskDao.listar();
+		return taskRepository.findAll();
 	}
 
-	public Task findById(Integer id) {
-		return taskDao.buscar(id, Task.class);
+	public Task findById(int id) {
+		return taskRepository.findById(id);
 	}
 	
 	@Transactional
 	public void save(Task task) {
-		taskDao.salvarOuAtualizar(task);
+		taskRepository.save(task);
 	}
 
 	@Transactional
 	public void delete(Task task) {
-		taskDao.remover(task);
+		taskRepository.delete(task);
 	}
 	
 }
