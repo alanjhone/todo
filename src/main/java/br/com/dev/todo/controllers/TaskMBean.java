@@ -6,6 +6,7 @@ package br.com.dev.todo.controllers;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 
 import org.ocpsoft.rewrite.el.ELBeanName;
@@ -43,27 +44,23 @@ public class TaskMBean {
 		filteredtasks = new ArrayList<Task>();
 	}
 
+	@PostConstruct
+	public void init(){
+		listAll();
+	}
 	
 	public void add(){
-		
-
-				taskService.save(task);
-			
-		
-		
+		taskService.save(task);
+		listAll();
 		task = new Task();
 	}
 
 	public void edit(Task task){
 		this.task = task; 
-		
 	}
 	
 	public void remove(Task task){
-		
-			taskService.delete(task);
-		
-		
+		taskService.delete(task);
 	}
 	
 	public void active(Task task){
@@ -78,7 +75,7 @@ public class TaskMBean {
 	 * @return the tasks
 	 */
 	public List<Task> getTasks() {
-		return taskService.findAll();
+		return tasks;
 	}
 
 	/**
@@ -118,31 +115,17 @@ public class TaskMBean {
 		this.task = task;
 	}
 	
-	public List<Task> listAll(){
-		filteredtasks = tasks;
-		return filteredtasks;
+	public void listAll(){
+		tasks = taskService.findAll();
 	}
 	
-	public List<Task> listActive(){
-		filteredtasks.clear();
-		for(Task task : tasks){
-			if(!task.isStatus())
-				filteredtasks.add(task);
-		}
-		
-		return filteredtasks;
+	public void listActive(){
+		tasks = taskService.findAllActive();
 	}
 	
-	public List<Task> listCompleted(){
-		filteredtasks.clear();
-		for(Task task : tasks){
-			if(task.isStatus())
-				filteredtasks.add(task);
-		}
-		
-		return filteredtasks;
+	public void listCompleted(){
+		tasks = taskService.findAllCompleted(); 
 	}
-	
 	
 	public void changeStatus(Task task) {
 		task.setStatus(!task.isStatus());

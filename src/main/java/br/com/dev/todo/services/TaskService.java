@@ -8,6 +8,7 @@ import java.util.List;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
@@ -26,9 +27,17 @@ public class TaskService{
 	private TaskRepository taskRepository;
 
 	public List<Task> findAll() {
-		return taskRepository.findAll();
+		return taskRepository.findAll(new Sort("status"));
 	}
 
+	public List<Task> findAllActive() {
+		return taskRepository.findAllActive();
+	}
+	
+	public List<Task> findAllCompleted() {
+		return taskRepository.findAllCompleted();
+	}
+	
 	public Task findById(int id) {
 		return taskRepository.findById(id);
 	}

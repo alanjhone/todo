@@ -78,9 +78,9 @@
 					<div class="row">
 					
 						<h:panelGroup style="padding-top: 10px;">
-							<h:commandLink actionListener="#{taskMBean.remove(task)}" id="listAll" value="All" style="padding-right: 10px;"> </h:commandLink>
-							<h:commandLink actionListener="#{taskMBean.remove(task)}" id="listActive" value="Active" style="padding-right: 10px;"> </h:commandLink>
-							<h:commandLink actionListener="#{taskMBean.remove(task)}" id="listCompleted" value="Completed"> </h:commandLink>
+							<p:commandLink action="#{taskMBean.listAll}" id="listAll" value="All" style="padding-right: 10px;" update="taskList"/>
+							<p:commandLink action="#{taskMBean.listActive}" id="listActive" value="Active" style="padding-right: 10px;" update="taskList"/>
+							<p:commandLink action="#{taskMBean.listCompleted}" id="listCompleted" value="Completed" update="taskList"/>
 						</h:panelGroup>
 					</div>
 				
