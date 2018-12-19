@@ -6,17 +6,20 @@
 	template="/include/template.xhtml">
 	
 	<ui:define name="conteudo">
-			<h:form prependId="false" onkeypress="if (event.keyCode == 13) { document.getElementById('btn_add').click(); return false; }">
-				<h1>Todos</h1>
-				
+	
 				<div class="row">
 					<h:messages id="messages" autoUpdate="true" closable="true" />
-				</div>
+				</div>	
+	
+			<h:form prependId="false" onkeypress="if (event.keyCode == 13) { document.getElementById('btn_add').click(); return false; }">
+				<h1>Lista de Tarefas</h1>
 				
-				<div class="row">
+
+				
+				<div class="row" style="margin-top: 20px;">
 					<div class="input-group">
 					  <div class="input-group-prepend">
-					  	<p:commandButton value="+" update="taskList description" action="#{taskMBean.add}" id="btn_add" style="display: none;"/>
+					  	<p:commandButton value="+" update="taskList description messages" action="#{taskMBean.add}" id="btn_add" style="display: none;"/>
 					  </div>
 					  <h:inputText id="description" name="description" value="#{taskMBean.task.description}" 
 					  class="form-control" style="padding:10px;"/>
@@ -30,31 +33,31 @@
 
 							<h:column>
 								<f:facet name="header">
-									<h:outputText value="State" />
+									<h:outputText value="Status" />
 								</f:facet>
 									
 								<p:commandLink action="#{taskMBean.changeStatus(task)}" update="taskList"  id="btn_state" rendered="#{task.status == true}"
 									class="btn-icons">
-									<img src="/todo/images/check_verde.png" title="Completed" class="img-edit-icon" />
+									<img src="/todo/images/check_verde.png" title="Finalizada" class="img-edit-icon" />
 								</p:commandLink>
 								
 								<p:commandLink action="#{taskMBean.changeStatus(task)}" id="btn_completed" update="taskList" rendered="#{task.status == false}"
 									class="btn-icons">									
-									<img src="/todo/images/check.png" title="Active" class="img-edit-icon"/>
+									<img src="/todo/images/check.png" title="Ativa" class="img-edit-icon"/>
 								</p:commandLink>
 							
 							</h:column>
 							
 							<h:column>
 								<f:facet name="header">
-									<h:outputText value="Task" />
+									<h:outputText value="Tarefa" />
 								</f:facet>
 								<h:outputText value="#{ task.description }" />
 							</h:column>
 							
 							<h:column>
 								<f:facet name="header">
-									<h:outputText value="Options" />
+									<h:outputText value="Ações" />
 								</f:facet>
 								
 								<p:commandLink action="#{taskMBean.edit(task)}" id="btn_edit" update="description"
@@ -78,9 +81,9 @@
 					<div class="row">
 					
 						<h:panelGroup style="padding-top: 10px;">
-							<p:commandLink action="#{taskMBean.listAll}" id="listAll" value="All" style="padding-right: 10px;" update="taskList"/>
-							<p:commandLink action="#{taskMBean.listActive}" id="listActive" value="Active" style="padding-right: 10px;" update="taskList"/>
-							<p:commandLink action="#{taskMBean.listCompleted}" id="listCompleted" value="Completed" update="taskList"/>
+							<p:commandLink action="#{taskMBean.listAll}" id="listAll" value="Todas" style="padding-right: 10px;" update="taskList"/>
+							<p:commandLink action="#{taskMBean.listActive}" id="listActive" value="Ativas" style="padding-right: 10px;" update="taskList"/>
+							<p:commandLink action="#{taskMBean.listCompleted}" id="listCompleted" value="Finalizadas" update="taskList"/>
 						</h:panelGroup>
 					</div>
 				

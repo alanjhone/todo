@@ -3,18 +3,17 @@
  */
 package br.com.dev.todo.controllers;
 
+import static br.com.dev.todo.helpers.FacesUtils.addMensagemErro;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
-import javax.faces.bean.ManagedBean;
 
 import org.ocpsoft.rewrite.el.ELBeanName;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 import br.com.dev.todo.domain.Task;
 import br.com.dev.todo.services.TaskService;
@@ -50,9 +49,13 @@ public class TaskMBean {
 	}
 	
 	public void add(){
-		taskService.save(task);
-		listAll();
-		task = new Task();
+		if(task.getDescription() != null && task.getDescription().trim().length() > 0){
+			taskService.save(task);
+			listAll();
+			task = new Task();
+		}else{
+			addMensagemErro("Por favor, informe a descrição da tarefa.");
+		}
 	}
 
 	public void edit(Task task){
@@ -61,16 +64,9 @@ public class TaskMBean {
 	
 	public void remove(Task task){
 		taskService.delete(task);
-	}
-	
-	public void active(Task task){
-		task.setStatus(false);
+		listAll();
 	}
 
-	public void completed(Task task){
-		task.setStatus(true);
-	}
-	
 	/**
 	 * @return the tasks
 	 */
