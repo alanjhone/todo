@@ -10,12 +10,16 @@ permitindo que se saiba que está funcionando de acordo com o esperado.
 
 * Instruções para execução:
 
+    1 - Baixar e configurar o JDK 8. (no meu caso foi o JDK 1.8.0_191)
+
     1 - baixar o projeto ou utilizar o git para fazer um clone no repositório: https://github.com/alanjhone/todo.git
 
-    2 -  Criar um banco de dados postgres com o nome ‘todo’ e, definir usuário e senha ‘postgres’.
+    2 -  Criar um banco de dados local do tipo postgres com o nome ‘todo’ e, definir usuário e senha ‘postgres’.
 
         database: todo
         senha: postgres
         usuario: postgres
 
-    3 - Importar o projeto maven que foi obtido na etapa 1 e rodar a aplicação utilizando um servidor Tomcat (no meu caso foi o tomcat 8.0.53
+    3 - Utilizar o eclipse e importar o projeto maven que foi obtido na etapa 1.
+    
+    4 - Rodar a aplicação utilizando um servidor Tomcat (no meu caso foi o tomcat 8.0.53)
